@@ -6,8 +6,14 @@ using namespace sf;
 class Player
 {
 private:
+    // Settings
     const float START_SPEED = 200;
-    const float START_HEATH = 100;
+    const float START_HEALTH = 100;
+    float timeIntervalHit = 200;
+    float hitDamange = 10;
+    float speedIncreasePercent = .2f;  // 20%
+    float healthIncreasePercent = .2f; // 20%
+    //------------------------------
 
     Vector2f m_Position;
     Sprite m_Sprite;
@@ -50,7 +56,7 @@ public:
     Vector2f getCenter();
 
     // What angle is the player facing
-    Vector2f getRotation();
+    float getRotation();
 
     Sprite getSprite();
 
