@@ -1,4 +1,5 @@
 #include "player.hpp"
+#define PI 3.14159265
 
 Player::Player()
 {
@@ -9,6 +10,7 @@ Player::Player()
     // Associate a texture with the sprite
     m_Texture.loadFromFile("assets/graphics/player.png");
     m_Sprite.setTexture(m_Texture);
+    m_Sprite.setRotation(0);
 
     // Set the origin of the sprite to the center
     // for smooth rotation
@@ -117,7 +119,7 @@ void Player::stopDown()
     m_DownPressed = false;
 }
 
-void Player::update(float elapsedTime, Vector2f mousePosition)
+void Player::update(float elapsedTime, Vector2i mousePosition)
 {
     // Move Player
     if (m_UpPressed)
@@ -166,7 +168,7 @@ void Player::update(float elapsedTime, Vector2f mousePosition)
     // ---------------------------------------------
 
     // Calculate the angle the player is facing
-    float angle = (atan2(mousePosition.y - m_Resolution.y / 2, mousePosition.x - m_Resolution.x / 2) * 180) / 3.141;
+    float angle = atan2(mousePosition.y - m_Resolution.y / 2, mousePosition.x - m_Resolution.x / 2) * 180 / PI;
     m_Sprite.setRotation(angle);
     // ---------------------------------------------
 }

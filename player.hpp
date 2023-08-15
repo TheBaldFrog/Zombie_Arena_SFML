@@ -73,7 +73,7 @@ public:
     // ---------------
 
     // We will call this function once every frame
-    void update(float elapsedTime, Vector2f mousePosition);
+    void update(float elapsedTime, Vector2i mousePosition);
 
     // Give the player a speed boost
     void upgradeSpeed();
