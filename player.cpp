@@ -1,5 +1,4 @@
-#include "player.hpp"
-#define PI 3.14159265
+#include "player.h"
 
 Player::Player()
 {
@@ -8,55 +7,52 @@ Player::Player()
     m_MaxHealth = START_HEALTH;
 
     // Associate a texture with the sprite
+    // !!Watch this space!!
     m_Texture.loadFromFile("assets/graphics/player.png");
     m_Sprite.setTexture(m_Texture);
-    m_Sprite.setRotation(0);
 
-    // Set the origin of the sprite to the center
+    // Set the origin of the sprite to the centre,
     // for smooth rotation
     m_Sprite.setOrigin(25, 25);
 }
 
 void Player::spawn(IntRect arena, Vector2f resolution, int tileSize)
 {
+    // Place the player in the middle of the arena
     m_Position.x = arena.width / 2;
     m_Position.y = arena.height / 2;
 
+    // Copy the details of the arena to the player's m_Arena
     m_Arena.left = arena.left;
     m_Arena.width = arena.width;
     m_Arena.top = arena.top;
     m_Arena.height = arena.height;
 
+    // Remember how big the tiles are in this arena
     m_TileSize = tileSize;
 
+    // Strore the resolution for future use
     m_Resolution.x = resolution.x;
     m_Resolution.y = resolution.y;
 }
 
-void Player::resetPlayerStats()
+Time Player::getLastHitTime()
 {
-    m_Speed = START_SPEED;
-    m_Health = START_HEALTH;
-    m_MaxHealth = START_HEALTH;
+    return m_LastHit;
 }
 
 bool Player::hit(Time timeHit)
 {
-    if (timeHit.asMilliseconds() - m_LastHit.asMilliseconds() > timeIntervalHit)
+    if (timeHit.asMilliseconds() - m_LastHit.asMilliseconds() > 200) // 2 tenths of second
     {
         m_LastHit = timeHit;
-        m_Health -= hitDamange;
+        m_Health -= 10;
         return true;
     }
     else
     {
         return false;
     }
-}
-
-Time Player::getLastHitTime()
-{
-    return m_LastHit;
 }
 
 FloatRect Player::getPosition()
@@ -77,6 +73,11 @@ float Player::getRotation()
 Sprite Player::getSprite()
 {
     return m_Sprite;
+}
+
+int Player::getHealth()
+{
+    return m_Health;
 }
 
 void Player::moveLeft()
@@ -121,7 +122,7 @@ void Player::stopDown()
 
 void Player::update(float elapsedTime, Vector2i mousePosition)
 {
-    // Move Player
+
     if (m_UpPressed)
     {
         m_Position.y -= m_Speed * elapsedTime;
@@ -141,7 +142,6 @@ void Player::update(float elapsedTime, Vector2i mousePosition)
     {
         m_Position.x -= m_Speed * elapsedTime;
     }
-    // ---------------------------------------------
 
     m_Sprite.setPosition(m_Position);
 
@@ -165,35 +165,35 @@ void Player::update(float elapsedTime, Vector2i mousePosition)
     {
         m_Position.y = m_Arena.top + m_TileSize;
     }
-    // ---------------------------------------------
 
     // Calculate the angle the player is facing
-    float angle = atan2(mousePosition.y - m_Resolution.y / 2, mousePosition.x - m_Resolution.x / 2) * 180 / PI;
+    float angle = (atan2(mousePosition.y - m_Resolution.y / 2,
+                         mousePosition.x - m_Resolution.x / 2) *
+                   180) /
+                  3.141;
+
     m_Sprite.setRotation(angle);
-    // ---------------------------------------------
 }
 
 void Player::upgradeSpeed()
 {
-    m_Speed += START_SPEED * speedIncreasePercent;
+    // 20% speed upgrade
+    m_Speed += (START_SPEED * .2);
 }
 
 void Player::upgradeHealth()
 {
-    m_MaxHealth += START_HEALTH * healthIncreasePercent;
+    // 20% max health upgrade
+    m_MaxHealth += (START_HEALTH * .2);
 }
 
 void Player::increaseHealthLevel(int amount)
 {
     m_Health += amount;
 
+    // But not beyond the maximum
     if (m_Health > m_MaxHealth)
     {
         m_Health = m_MaxHealth;
     }
-}
-
-int Player::getHealth()
-{
-    return m_Health;
 }

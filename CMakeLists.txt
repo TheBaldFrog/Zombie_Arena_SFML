@@ -10,9 +10,11 @@ find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 add_executable(${CMAKE_PROJECT_NAME})
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE 
-    main.cpp
-    player.hpp
+    player.h
     player.cpp
+    ZombieArena.h
+    ZombieArena.cpp
+    CreateBackground.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE sfml-system sfml-graphics sfml-window)
