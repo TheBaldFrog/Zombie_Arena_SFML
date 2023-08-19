@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.18)
 
 project(zombie_arena)
 
-set(CMAKE_TOOLCHAIN_FILE "C:/Users/laust/vcpkg/scripts/buildsystems/vcpkg.cmake")
+#set(CMAKE_TOOLCHAIN_FILE "C:/Users/laust/vcpkg/scripts/buildsystems/vcpkg.cmake")
 #set(VCPKG_TARGET_TRIPLET x64-windows-static)
 
 
@@ -15,6 +15,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ZombieArena.h
     ZombieArena.cpp
     CreateBackground.cpp
+    TextureHolder.h
+    TextureHolder.cpp
+    Zombie.h
+    Zombie.cpp
+    CreateHorde.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE sfml-system sfml-graphics sfml-window)
