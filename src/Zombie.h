@@ -21,7 +21,7 @@ private:
     Sprite m_Sprite;
     float m_Speed;
     float m_Health;
-    bool m_Alive;
+    bool m_Alive = true;
 
 public:
     bool hit();

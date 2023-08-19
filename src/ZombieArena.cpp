@@ -244,7 +244,7 @@ int main()
             float dtAsSeconds = dt.asSeconds();
 
             // Where is the mouse pointer
-            mouseScreenPosition = Mouse::getPosition();
+            mouseScreenPosition = Mouse::getPosition(window);
 
             // Convert mouse position to world coordinates of mainView
             mouseWorldPosition = window.mapPixelToCoords(
