@@ -22,6 +22,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/CreateHorde.cpp
     src/Bullet.h
     src/Bullet.cpp
+    src/Pickup.h
+    src/Pickup.cpp
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE sfml-system sfml-graphics sfml-window)
